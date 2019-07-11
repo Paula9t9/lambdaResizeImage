@@ -39,6 +39,7 @@ exports.handler = function(event, context, callback){
   // Download the image from S3, transform, and upload to a different S3 bucket.
   async.waterfall([
     function download(next) {
+      console.log("started async resize function");
         // Download the image from S3 into a buffer.
         s3.getObject({
                 Bucket: srcBucket,
@@ -74,7 +75,8 @@ exports.handler = function(event, context, callback){
                   Bucket: srcBucket,
                   Key: dstKey,
                   Body: data,
-                  ContentType: contentType
+                  ContentType: contentType,
+                  ACL: 'public-read'
               },
               next);
           }
