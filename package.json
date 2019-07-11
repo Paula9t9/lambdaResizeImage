@@ -1,0 +1,18 @@
+{
+  "name": "js_resize_lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js_resize_lambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.1.0",
+    "aws-sdk": "^2.491.0",
+    "file-type": "^12.0.1",
+    "gm": "^1.23.1",
+    "moment": "^2.24.0"
+  }
+}

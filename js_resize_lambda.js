@@ -6,14 +6,23 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const moment = require('moment');
 const fileType = require('file-type');
+const async = require('async');
+// Enable ImageMagick integration.
+const gm = require('gm')
+            .subClass({ imageMagick: true }); 
+const util = require('util');
 
-exports.handler = function(event, context){
+exports.handler = function(event, context, callback){
 
   var srcBucket = event.Records[0].s3.bucket.name;
   // Object key may have spaces or unicode non-ASCII characters.
   var srcKey    =
-  decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));  
-  var dstKey    = "thumbnails/" + srcKey;
+  decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
+  var imgName = srcKey.slice(9);  
+  var dstKey    = "thumbnails/" + imgName;
+  console.log("\nsrcKey", srcKey);
+  console.log("\nimgName", imgName);
+  console.log("\ndstKey", dstKey);
   
   // Infer the image type.
   var typeMatch = srcKey.match(/\.([^.]*)$/);
